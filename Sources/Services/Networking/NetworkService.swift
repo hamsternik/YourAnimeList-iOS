@@ -8,8 +8,6 @@
 
 import Foundation
 
-public let jikanBaseURL = URL(fileURLWithPath: "https://api.jikan.moe/v3")
-
 final public class NetworkService {
     
     let executor: NetworkOperationExecutor
@@ -17,5 +15,7 @@ final public class NetworkService {
     init(executor: NetworkOperationExecutor = URLSession.shared) {
         self.executor = executor
     }
+    
+    func execute()
     
 }

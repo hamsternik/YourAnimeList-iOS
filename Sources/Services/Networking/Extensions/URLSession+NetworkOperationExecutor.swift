@@ -10,6 +10,7 @@ import Foundation
 
 extension URLSession: NetworkOperationExecutor {
     
+    @discardableResult
     func operation(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> NetworkOperation {
         return dataTask(with: request, completionHandler: completion)
     }

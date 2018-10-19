@@ -8,10 +8,20 @@
 
 import Foundation
 
-protocol NetworkOperation {
-    var state: URLSessionTask.State { get }
-    
+typealias NetworkOperation = Cancelable & Resumable & Suspendable & URLSessionTaskState
+
+protocol Cancelable {
     func cancel()
+}
+
+protocol Resumable {
     func resume()
+}
+
+protocol Suspendable {
     func suspend()
+}
+
+protocol URLSessionTaskState {
+    var state: URLSessionTask.State { get }
 }
