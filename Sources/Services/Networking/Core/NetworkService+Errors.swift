@@ -10,7 +10,7 @@ import Foundation
 
 extension NetworkService {
     
-    enum NetworkServiceError: Error {
+    enum Error: Swift.Error {
         case clientError
         case serverError
         case unknown

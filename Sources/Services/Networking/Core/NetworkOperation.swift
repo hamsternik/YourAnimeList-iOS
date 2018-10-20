@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias NetworkOperation = Cancelable & Resumable & Suspendable & URLSessionTaskState
+typealias NetworkOperation = URLSessionTaskState & Cancelable & Resumable & Suspendable 
 
 protocol Cancelable {
     func cancel()

@@ -8,10 +8,13 @@
 
 import Foundation
 
-final public class NetworkService {
+protocol NetworkServiceProtocol {
     
-    typealias SuccessCompletion = (Data) -> Void
-    typealias FailureCompletion = (NetworkServiceError) -> Void
+    func execute(request: URLRequest, onSuccess: @escaping (Data) -> Void, onFailure: @escaping (NetworkService.Error) -> Void) -> NetworkOperation
+    
+}
+
+final public class NetworkService {
     
     let executor: NetworkOperationExecutor
     
@@ -19,7 +22,7 @@ final public class NetworkService {
         self.executor = executor
     }
     
-    func execute(request: URLRequest, onSuccess: @escaping SuccessCompletion, onFailure: @escaping FailureCompletion) -> NetworkOperation {
+    func execute(request: URLRequest, onSuccess: @escaping (Data) -> Void, onFailure: @escaping (NetworkService.Error) -> Void) -> NetworkOperation {
         return executor.operation(from: request) { (data, response, error) in
             // TODO: Should make nil-validation and parse data/response/error.
             onFailure(.unknown)

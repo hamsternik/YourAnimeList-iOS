@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:YourAnimeList-iOS.xcodeproj">
+      location = "self:/Users/nikitakhomitsevich/Developer/YourAnimeList-iOS/YourAnimeList.xcodeproj">
    </FileRef>
 </Workspace>

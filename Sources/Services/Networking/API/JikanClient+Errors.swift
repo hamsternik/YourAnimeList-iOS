@@ -10,7 +10,7 @@ import Foundation
 
 extension JikanClient {
     
-    enum JikanClientError: Error {
+    enum Error: Swift.Error {
         case parsingError
         case unknown(String?)
     }

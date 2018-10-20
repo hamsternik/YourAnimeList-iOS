@@ -8,23 +8,21 @@
 
 import Foundation
 
+typealias Identifier = UInt64
+
 final class JikanClient {
-    
-    typealias Identifier = UInt64
-    typealias SuccessCompletion = (Data) -> Void
-    typealias FailureCompletion = (JikanClientError) -> Void
     
     private enum Constants {
         static let baseURL = URL(fileURLWithPath: "https://api.jikan.moe/v3")
     }
     
-    private let networkService: NetworkService
+    private let networkService: NetworkServiceProtocol
     
-    init(networkService: NetworkService) {
+    init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
     }
     
-    func getAnime(byID id: Identifier, onSuccess: @escaping SuccessCompletion, onFailure: @escaping FailureCompletion) -> NetworkOperation {
+    func getAnime(byID id: Identifier, onSuccess: @escaping (Data) -> Void, onFailure: @escaping (JikanClient.Error) -> Void) -> NetworkOperation {
         let animePathComponent = "anime/{id}"
         let url = Constants.baseURL.appendingPathComponent(animePathComponent)
         let request = URLRequest(url: url)
