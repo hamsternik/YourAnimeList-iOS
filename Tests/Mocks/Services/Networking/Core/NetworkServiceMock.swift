@@ -14,6 +14,11 @@ final class NetworkServiceMock: NetworkServiceProtocol {
     var data: Data?
     var error: NetworkService.Error?
     
+    init(data: Data? = nil, error: NetworkService.Error? = nil) {
+        self.data = data
+        self.error = error
+    }
+    
     // TODO: Is correct to test only a NetworkServiceProtocol mocked implementation
     // but without any `executor` as exist in NetworkServiceProtocol existed implementation (look @NetworkService)
     func execute(request: URLRequest, onSuccess: @escaping (Data) -> Void, onFailure: @escaping (NetworkService.Error) -> Void) -> NetworkOperation {

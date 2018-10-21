@@ -11,19 +11,46 @@ import XCTest
 
 final class NetworkOperationExecutorTests: XCTestCase {
     
-    var sut: NetworkOperationExecutor!
-    
-    override func setUp() {
-        super.setUp()
-        sut = NetworkOperationExecutorMock()
-    }
-    
-    override func tearDown() {
-        sut = nil
-        super.tearDown()
-    }
+    private let expectedURLString = "http://www.apple.com"
+    private lazy var expectedURL = URL(string: self.expectedURLString)!
+    private lazy var request = URLRequest(url: self.expectedURL)
     
     // MARK: - Test Cases
     
+    func test_ExecuteNetworkOperation_WithSuccess() {
+        let expectation = XCTestExpectation(description: "Make request with mocked NetworkOperationExecutor. Wait: expected data instance.")
+        let expectedData = Data()
+        
+        let sut = NetworkOperationExecutorMock(data: expectedData)
+        let operation = sut.operation(from: request) { (data, response, error) in
+            XCTAssertNotNil(data)
+            XCTAssertNil(response)
+            XCTAssertNil(error)
+            XCTAssertEqual(data, expectedData)
+            expectation.fulfill()
+        }
+        
+        XCTAssertEqual(operation.state, .running)
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func test_executeNetworkOperation_WithFailure() {
+        let expectation = XCTestExpectation(description: "Make request with mocked NetworkOperationExecutor. Wait: expected error instance.")
+        let expectedError: NetworkOperationExecutorMock.Error = .unknown
+        
+        let sut = NetworkOperationExecutorMock(error: expectedError)
+        let operation = sut.operation(from: request) { (data, response, error) in
+            XCTAssertNil(data)
+            XCTAssertNil(response)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error as? NetworkOperationExecutorMock.Error, expectedError)
+            expectation.fulfill()
+        }
+        
+        XCTAssertEqual(operation.state, .running)
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
 }
-

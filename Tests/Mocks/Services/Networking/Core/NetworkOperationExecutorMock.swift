@@ -11,11 +11,20 @@ import Foundation
 
 final class NetworkOperationExecutorMock: NetworkOperationExecutor {
     
+    enum Error: Swift.Error {
+        case unknown
+    }
+    
     var data: Data?
     var error: Error?
     
+    init(data: Data? = nil, error: Error? = nil) {
+        self.data = data
+        self.error = error
+    }
+    
     @discardableResult
-    func operation(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> NetworkOperation {
+    func operation(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Swift.Error?) -> Void) -> NetworkOperation {
         completion(data, nil, error)
         return NetworkOperationMock(state: .running)
     }

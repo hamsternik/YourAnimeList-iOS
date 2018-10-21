@@ -25,7 +25,8 @@ final class JikanClient {
     func getAnime(byID id: Identifier, onSuccess: @escaping (Data) -> Void, onFailure: @escaping (JikanClient.Error) -> Void) -> NetworkOperation {
         let animePathComponent = "anime/{id}"
         let url = Constants.baseURL.appendingPathComponent(animePathComponent)
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         
         return networkService.execute(
             request: request,
