@@ -1,0 +1,10 @@
+os: osx
+language: swift
+osx_image: xcode10
+xcode_project: YourAnimeList-iOS.xcodeproj # replace at `xcode_workspace` key, when move to workspace
+xcode_scheme: YourAnimeList-iOS
+xcode_destination: platform=iOS Simulator,OS=11.4,name=iPhone X
+
+branches:
+    only:
+        - master
