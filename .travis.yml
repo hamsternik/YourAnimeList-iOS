@@ -8,3 +8,15 @@ xcode_destination: platform=iOS Simulator,OS=11.4,name=iPhone X
 branches:
     only:
         - master
+
+before_install:
+    - bundle install
+
+script:
+    - set -o pipefail && xcodebuild test \
+      -enableCodeCoverage YES \
+      -project YourAnimeList.xcodeproj \
+      -scheme YourAnimeList \
+      -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO \
+      | xcpretty
+    - pod lib lint
