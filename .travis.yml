@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode10
+osx_image: xcode10.1
 # xcode_project: YourAnimeList.xcodeproj # replace at `xcode_workspace` key, when move to workspace
 # xcode_scheme: YourAnimeList
 # xcode_destination: platform=iOS Simulator,OS=11.4,name=iPhone X
