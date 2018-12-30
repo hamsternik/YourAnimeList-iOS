@@ -1,0 +1,16 @@
+language: objective-c
+osx_image: xcode10.1
+# xcode_project: YourAnimeList.xcodeproj # replace at `xcode_workspace` key, when move to workspace
+# xcode_scheme: YourAnimeList
+# xcode_destination: platform=iOS Simulator,OS=11.4,name=iPhone X
+
+branches:
+    only:
+        - master
+
+before_install:
+    - bundle install
+
+script:
+    - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project YourAnimeList.xcodeproj -scheme YourAnimeList -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO | xcpretty "color" -f `xcpretty-travis-formatter`
+      # - pod lib lint
